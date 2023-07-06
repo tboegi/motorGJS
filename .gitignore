@@ -1,0 +1,11 @@
+.#*
+*~
+\#*#
+/db/
+bin/
+configure/*local*
+dbd/
+include/
+iocBoot/
+lib/
+O.*
