@@ -1,0 +1,121 @@
+record(motor,"$(PREFIX)$(MOTOR_NAME)")
+{
+	field(DESC,"$(DESC)")
+	field(CARD,"$(AXIS_NO=0)")
+	field(DTYP,"asynMotor")
+	field(DVAL,"$(DVAL=0)")
+	field(DIR,"$(DIR=0)")
+	field(VELO,"$(VELO=0)")
+	field(JVEL,"$(JVEL=0)")
+	field(VBAS,"$(VBAS=0)")
+	field(ACCL,"$(ACCL=0)")
+	field(JAR, "$(JAR=0)")
+	field(BDST,"$(BDST=0)")
+	field(DLY, "$(DLY=0)")
+	field(BVEL,"$(BVEL=0)")
+	field(BACC,"$(BACC=0)")
+	field(OUT,"@asyn($(MOTOR_PORT),$(AXIS_NO))")
+	field(UREV,"$(UREV=1)")
+	field(SREV,"$(SREV=200)")
+	field(ERES,"$(ERES=0)")
+	field(PREC,"$(PREC=3)")
+	field(EGU,"$(EGU=mm)")
+	field(DHLM,"$(DHLM=0)")
+	field(DLLM,"$(DLLM=0)")
+	field(RDBD,"$(RDBD=0)")
+	field(RTRY,"$(RTRY=1)")
+	field(RMOD,"$(RMOD=3)")
+	field(DLY,"$(DLY=0)")
+	field(FOFF,"$(FOFF=0)")
+	field(NTM,"0")
+	field(TWV,"$(TWV=1)")
+}
+
+record(mbbo,  "$(PREFIX)$(MOTOR_NAME)-MicroSteps") {
+    field(DESC,"MicroSteps")
+    field(DTYP, "asynInt32")
+    field(VAL,  "$(VAL=1)")
+    field(PINI, "YES")
+    field(OUT,"@asyn($(MOTOR_PORT),$(AXIS_NO))MicroSteps")
+    field(ZRVL, "0")
+
+    field(ONVL, "1")
+    field(TWVL, "2")
+    field(THVL, "3")
+    field(FRVL, "4")
+    field(FVVL, "5")
+
+    field(ZRST, "1")
+    field(ONST, "2")
+    field(TWST, "4")
+    field(THST, "8")
+    field(FRST, "16")
+    field(FVST, "32")
+}
+# TODO Add support for the Ramp
+
+
+
+#https://epics.anl.gov/EpicsDocumentation/AppDevManuals/RecordRef/Recordref-23.html
+record(mbbi,  "$(PREFIX)$(MOTOR_NAME)-ErrorCode") {
+    field(DESC, "ErrorCode")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(MOTOR_PORT),$(AXIS_NO))ErrorCode")
+    field(SCAN, "I/O Intr")
+    field(ZRVL, "0xE1")
+    field(ONVL, "0xE2")
+    field(TWVL, "0xE3")
+    field(THVL, "0xE4")
+    field(FRVL, "0xE5")
+    field(FVVL, "0xE6")
+    field(SXVL, "0xE7")
+    field(SVVL, "0xE8")
+    field(EIVL, "0xE9")
+    field(NIVL, "0xEA")
+    field(TEVL, "0xEF")
+    field(ELVL, "0xFF")
+
+#0xE1 - Handbetrieb, Off-Line
+#0xE2 - Befehlsspeicher noch voll (in der Steuerung)
+#0xE3 - Keine Daten vorhanden
+#0xE4 - Motor fährt noch
+#0xE5 - falsches Datenformat
+#0xE6 - Endkontakt ausgelöst/Hardwarefehler
+#0xE7 - falscher Befehl (nicht vorhanden)
+#0xE8 - Modul/Motor nicht vorhanden
+#0xE9 - Fernbedienung defekt
+#0xEA- Fehler bei der Datenüertragung, Daten nochmal senden
+#0xEF - Kurzschluss Motor
+
+#normale Rückmeldung:
+#0xFF - alles in Ordnung, Daten erhalten bzw. Befehl wird ausgeführt
+
+    field(ZRST, "Manual mode, Off-line")
+    field(ONST, "Command busy")
+    field(TWST, "No data")
+    field(THST, "Motor still running")
+    field(FRST, "Wrong format")
+    field(FVST, "Limit switch/HW Error")
+    field(SXST, "Wrong command")
+    field(SVST, "Motor not there")
+    field(EIST, "Remote control broken")
+    field(NIST, "Wrong data, send again")
+    field(TEST, "Motor short circuit")
+    field(ELST, "OK")
+
+# Alarm severities
+    field(ZRSV, "1")
+    field(ONSV, "1")
+    field(TWSV, "1")
+    field(THSV, "1")
+    field(FRSV, "1")
+    field(FVSV, "1")
+    field(SXSV, "1")
+    field(SVSV, "2")
+    field(EISV, "1")
+    field(NISV, "1")
+    field(TESV, "2")
+    field(ELSV, "0")
+}
+
+

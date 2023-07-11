@@ -1,0 +1,32 @@
+epicsEnvSet("GJS_NUMAXES",   "1")
+epicsEnvSet("MOTOR_PORT",    "$(SM_MOTOR_PORT=MCU1)")
+
+epicsEnvSet("IPADDR",        "$(SM_IPADDR=127.0.0.1)")
+epicsEnvSet("IPPORT",        "$(SM_IPPORT=5001)")
+epicsEnvSet("ASYN_PORT",     "$(SM_ASYN_PORT=MC_CPU1)")
+epicsEnvSet("PREFIX",        "$(SM_PREFIX=GJS:)")
+#
+# The controller, common to all axes
+#
+< gjsController.iocsh
+
+
+#
+# Axis 0
+#
+epicsEnvSet("MOTOR_NAME",    "Mtr0")
+epicsEnvSet("AXIS_NO",       "0")
+epicsEnvSet("DESC",          "motor1")
+epicsEnvSet("EGU",           "mm")
+epicsEnvSet("PREC",          "3")
+# Steps per revolution
+epicsEnvSet("SREV",          "12800")
+# units (mm) per revolution
+epicsEnvSet("UREV",          "60.0")
+# high soft limit
+epicsEnvSet("DHLM",          "0.0")
+# low soft limit
+epicsEnvSet("DLLM",          "0.0")
+
+< gjsAxis.iocsh
+

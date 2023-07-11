@@ -7,5 +7,7 @@ configure/*local*
 dbd/
 include/
 iocBoot/
+logs/
 lib/
+test/log*.txt
 O.*
